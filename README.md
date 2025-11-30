@@ -70,6 +70,25 @@ A API transforma o JSON recebido antes de persistir:
 }
 ```
 
+## Coleção do Postman
+
+Uma coleção completa do Postman está disponível no link abaixo:
+
+https://www.postman.com/mttomaz/jitterbit-api/overview
+
+Essa coleção contém todos os endpoints da API já configurados (Create, List, Get, Update, Delete), facilitando os testes.
+
+### Antes de rodar os requests
+
+Você precisa criar uma variável chamada baseURL no Postman:
+
+1. Abra a coleção jitterbit-api
+2. Vá em Variables
+3. Crie a variável:
+  - Name: baseURL
+  - Value: http://localhost:3000
+
+Isso permite que todos os endpoints funcionem automaticamente, sem precisar alterar cada URL manualmente.
 
 ## Rotas da API
 ### ➤ Criar novo pedido
