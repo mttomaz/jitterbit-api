@@ -41,3 +41,41 @@ export const getOrderById = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// UPDATE
+export const updateOrder = async (req, res) => {
+  try {
+    const body = req.body
+
+    const updated = await Order.findByIdAndUpdate(
+      req.params.id,
+      {
+        orderId: body.numeroPedido,
+        value: body.valorTotal,
+        creationDate: new Date(body.dataCriacao),
+        items: body.items.map((item) => ({
+          productId: Number(item.idItem),
+          quantity: item.quantidadeItem,
+          price: item.valorItem,
+        })),
+      },
+      { new: true },
+    );
+
+    if (!updated) return res.status(404).json({ error: "Pedido não encontrado" });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+// DELETE
+export const deleteOrder = async (req, res) => {
+  try {
+    const deleted = await Order.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ error: "Pedido não encontrado" });
+    res.json({ message: "Pedido deletado com sucesso" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
