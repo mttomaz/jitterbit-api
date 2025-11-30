@@ -47,8 +47,8 @@ export const updateOrder = async (req, res) => {
   try {
     const body = req.body
 
-    const updated = await Order.findByIdAndUpdate(
-      req.params.id,
+    const updated = await Order.findOneAndUpdate(
+      { orderId: req.params.id },
       {
         orderId: body.numeroPedido,
         value: body.valorTotal,
@@ -72,7 +72,7 @@ export const updateOrder = async (req, res) => {
 // DELETE
 export const deleteOrder = async (req, res) => {
   try {
-    const deleted = await Order.findByIdAndDelete(req.params.id);
+    const deleted = await Order.findOneAndDelete({ orderId: req.params.id });
     if (!deleted) return res.status(404).json({ error: "Pedido não encontrado" });
     res.json({ message: "Pedido deletado com sucesso" });
   } catch (err) {
